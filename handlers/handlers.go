@@ -1,12 +1,14 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 	"strconv"
 
 	"github.com/gorilla/mux"
+	"github.com/wsigma21/go-myapi.git/models"
 )
 
 // /hello
@@ -16,7 +18,13 @@ func HelloHandler(w http.ResponseWriter, req *http.Request) {
 
 // /article
 func ArticleHandler(w http.ResponseWriter, req *http.Request) {
-	io.WriteString(w, "Posting Article...\n")
+	// io.WriteString(w, "Posting Article...\n")
+	article := models.Article1
+	jsonData, err := json.Marshal(article)
+	if err != nil {
+		http.Error(w, "fail to encode json\n", http.StatusInternalServerError)
+	}
+	w.Write(jsonData)
 }
 
 // /article/list
