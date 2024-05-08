@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -11,23 +12,40 @@ import (
 	"github.com/wsigma21/go-myapi.git/models"
 )
 
-// /hello
+// GET /hello
 func HelloHandler(w http.ResponseWriter, req *http.Request) {
 	io.WriteString(w, "Hello, world!\n")
 }
 
-// /article
+// POST /article
 func ArticleHandler(w http.ResponseWriter, req *http.Request) {
-	// io.WriteString(w, "Posting Article...\n")
-	article := models.Article1
-	jsonData, err := json.Marshal(article)
+
+	// 1. バイトスライスreqBodybufferを用意
+	length, err := strconv.Atoi(req.Header.Get("Content-Length"))
 	if err != nil {
-		http.Error(w, "fail to encode json\n", http.StatusInternalServerError)
+		http.Error(w, "cannnot get content length\n", http.StatusBadRequest)
+		return
 	}
-	w.Write(jsonData)
+	reqBodybuffer := make([]byte, length)
+
+	// 2. Readメソッドでリクエストボディを読み出し
+	if _, err := req.Body.Read(reqBodybuffer); !errors.Is(err, io.EOF) {
+		http.Error(w, "fail to get request body\n", http.StatusBadRequest)
+	}
+
+	// 3. ボディをCloseする
+	defer req.Body.Close()
+
+	// article := models.Article1
+	// jsonData, err := json.Marshal(article)
+	// if err != nil {
+	// 	http.Error(w, "fail to encode json\n", http.StatusInternalServerError)
+	// 	return
+	// }
+	// w.Write(jsonData)
 }
 
-// /article/list
+// GET /article/list
 func ArticleListHandler(w http.ResponseWriter, req *http.Request) {
 	queryMap := req.URL.Query()
 
@@ -43,27 +61,58 @@ func ArticleListHandler(w http.ResponseWriter, req *http.Request) {
 		page = 1
 	}
 
-	resString := fmt.Sprintf("Article List (page=%d)\n", page)
-	io.WriteString(w, resString)
+	// resString := fmt.Sprintf("Article List (page=%d)\n", page)
+	// io.WriteString(w, resString)
+
+	articleList := []models.Article{models.Article1, models.Article2}
+	jsonData, err := json.Marshal(articleList)
+	if err != nil {
+		errMsg := fmt.Sprintf("fail to encode json (page %d)\n", page)
+		http.Error(w, errMsg, http.StatusInternalServerError)
+		return
+	}
+
+	w.Write(jsonData)
 }
 
-// /article/id
+// GET /article/id
 func ArticleDetailHandler(w http.ResponseWriter, req *http.Request) {
 	articleID, err := strconv.Atoi(mux.Vars(req)["id"])
 	if err != nil {
 		http.Error(w, "Invalid query parameter", http.StatusBadRequest)
 		return
 	}
-	resString := fmt.Sprintf("Article No.%d\n", articleID)
-	io.WriteString(w, resString)
+
+	article := models.Article1
+	jsonData, err := json.Marshal(article)
+	if err != nil {
+		errMsg := fmt.Sprintf("fail to encode json(articleID %d)\n", articleID)
+		http.Error(w, errMsg, http.StatusInternalServerError)
+		return
+	}
+	w.Write(jsonData)
 }
 
-// /article/nice
+// POST /article/nice
 func ArticleNiceHandler(w http.ResponseWriter, req *http.Request) {
-	io.WriteString(w, "Posting Nice...\n")
+	// io.WriteString(w, "Posting Nice...\n")
+	article := models.Article1
+	jsonData, err := json.Marshal(article)
+	if err != nil {
+		http.Error(w, "fail to encode json\n", http.StatusInternalServerError)
+		return
+	}
+	w.Write(jsonData)
 }
 
-// /comment
+// POST /comment
 func CommentHandler(w http.ResponseWriter, req *http.Request) {
-	io.WriteString(w, "Posting Comment...\n")
+	// io.WriteString(w, "Posting Comment...\n")
+	comment := models.Comment1
+	jsonData, err := json.Marshal(comment)
+	if err != nil {
+		http.Error(w, "fail to encode json\n", http.StatusInternalServerError)
+		return
+	}
+	w.Write(jsonData)
 }
