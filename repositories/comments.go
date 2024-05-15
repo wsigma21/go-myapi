@@ -14,7 +14,6 @@ func InsertComment(db *sql.DB, comment models.Comment) (models.Comment, error) {
 		values
 		(?, ?, now());
 	`
-
 	var newComment models.Comment
 	newComment.ArticleID, newComment.Message = comment.ArticleID, comment.Message
 

@@ -12,12 +12,11 @@ const (
 
 // POST /article 新規投稿をDBにinsertする関数
 func InsertArticle(db *sql.DB, article models.Article) (models.Article, error) {
-
 	const sqlStr = `
-		insert into articles
-		(title, contents, username, nice, created_at)
-		values
-		(?, ?, ?, 0, now());
+	insert into articles
+	(title, contents, username, nice, created_at)
+	values
+	(?, ?, ?, 0, now());
 	`
 
 	var newArticle models.Article
@@ -66,7 +65,6 @@ func SelectArticleDetail(db *sql.DB, articleID int) (models.Article, error) {
 		from articles
 		where article_id = ?;
 	`
-
 	row := db.QueryRow(sqlStr, articleID)
 	if err := row.Err(); err != nil {
 		return models.Article{}, err
@@ -98,7 +96,6 @@ func UpdateNiceNum(db *sql.DB, articleID int) error {
 		from articles
 		where article_id = ?;
 	`
-
 	row := tx.QueryRow(sqlGetNice, articleID)
 	if err := row.Err(); err != nil {
 		tx.Rollback()
@@ -116,16 +113,14 @@ func UpdateNiceNum(db *sql.DB, articleID int) error {
 		update articles set nice = ? where article_id = ?
 	`
 
-	// 指定されたIDの記事のいいね数を+1するようにデータベースの中身を更新する処理
 	_, err = tx.Exec(sqlUpdateNice, nicenum+1, articleID)
 	if err != nil {
 		tx.Rollback()
 		return err
 	}
 
-	if err = tx.Commit(); err != nil {
+	if err := tx.Commit(); err != nil {
 		return err
 	}
-
 	return nil
 }
