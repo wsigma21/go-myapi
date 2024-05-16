@@ -17,7 +17,7 @@ func HelloHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 // POST /article
-func ArticleHandler(w http.ResponseWriter, req *http.Request) {
+func PostArticleHandler(w http.ResponseWriter, req *http.Request) {
 
 	var reqArticle models.Article
 	if err := json.NewDecoder(req.Body).Decode(&reqArticle); err != nil {
@@ -62,7 +62,7 @@ func ArticleDetailHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 // POST /article/nice
-func ArticleNiceHandler(w http.ResponseWriter, req *http.Request) {
+func PostNiceHandler(w http.ResponseWriter, req *http.Request) {
 	var reqArticle models.Article
 	if err := json.NewDecoder(req.Body).Decode(&reqArticle); err != nil {
 		http.Error(w, "fail to decode json\n", http.StatusBadRequest)
@@ -73,7 +73,7 @@ func ArticleNiceHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 // POST /comment
-func CommentHandler(w http.ResponseWriter, req *http.Request) {
+func PostCommentHandler(w http.ResponseWriter, req *http.Request) {
 	var reqComment models.Comment
 	if err := json.NewDecoder(req.Body).Decode(&reqComment); err != nil {
 		http.Error(w, "fail to decode json\n", http.StatusBadRequest)
