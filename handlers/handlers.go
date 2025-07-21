@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -44,15 +45,12 @@ func ArticleListHandler(w http.ResponseWriter, req *http.Request) {
 		page = 1
 	}
 
-	articleList := []models.Article{models.Article1, models.Article2}
-	jsonData, err := json.Marshal(articleList)
-	if err != nil {
-		errMsg := fmt.Sprintf("fail to encode json (page %d\n", page)
-		http.Error(w, errMsg, http.StatusInternalServerError)
-		return
-	}
+	// 暫定でこれを追加することで
+	// 「変数pageが使われていない」というコンパイルエラーを回避
+	log.Println(page)
 
-	w.Write(jsonData)
+	articleList := []models.Article{models.Article1, models.Article2}
+	json.NewEncoder(w).Encode(articleList)
 }
 
 // GET /article/{id} のハンドラ
