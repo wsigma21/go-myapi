@@ -63,3 +63,29 @@ func SelectArticleList(db *sql.DB, page int) ([]models.Article, error) {
 
 	return articleArray, nil
 }
+
+// 投稿IDを指定して、記事データを取得する関数
+func SelectArticleDetail(db *sql.DB, articleID int) (models.Article, error) {
+	const sqlStr = `
+		select *
+		from articles
+		where article_id = ?;
+	`
+	row := db.QueryRow(sqlStr, articleID)
+	if err := row.Err(); err != nil {
+		return models.Article{}, err
+	}
+	var article models.Article
+	var createdTime sql.NullTime
+
+	err := row.Scan(&article.ID, &article.Title, &article.Contents, &article.UserName, &article.NiceNum, &createdTime)
+	if err != nil {
+		return models.Article{}, err
+	}
+
+	if createdTime.Valid {
+		article.CreatedAt = createdTime.Time
+	}
+
+	return article, nil
+}
