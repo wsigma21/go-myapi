@@ -23,12 +23,31 @@ func TestSelectArticleDetail(t *testing.T) {
 	}
 	defer db.Close()
 
-	expected := models.Article{
-		ID:       1,
-		Title:    "firstPost",
-		Contents: "This is my first blog",
-		UserName: "abe",
-		NiceNum:  3,
+	expected := models.Article{}
+
+	tests := []struct {
+		testTitle string
+		expected  models.Article
+	}{
+		{
+			testTitle: "subtest1",
+			expected: models.Article{
+				ID:       1,
+				Title:    "firstPost",
+				Contents: "This is my first blog",
+				UserName: "abe",
+				NiceNum:  2,
+			},
+		}, {
+			testTitle: "subtest1",
+			expected: models.Article{
+				ID:       2,
+				Title:    "2nd",
+				Contents: "Second blog post",
+				UserName: "abe",
+				NiceNum:  4,
+			},
+		},
 	}
 
 	got, err := repositories.SelectArticleDetail(db, expected.ID)
