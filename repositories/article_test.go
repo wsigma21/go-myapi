@@ -1,28 +1,13 @@
 package repositories_test
 
 import (
-	"database/sql"
-	"fmt"
 	"testing"
 
 	"github.com/wsigma21/go-mympi/models"
 	"github.com/wsigma21/go-mympi/repositories"
-
-	_ "github.com/go-sql-driver/mysql"
 )
 
 func TestSelectArticleDetail(t *testing.T) {
-	dbUser := "docker"
-	dbPassword := "docker"
-	dbDatabase := "sampledb"
-	dbConn := fmt.Sprintf("%s:%s@tcp(127.0.0.1:3306)/%s?parseTime=true", dbUser, dbPassword, dbDatabase)
-
-	db, err := sql.Open("mysql", dbConn)
-	if err != nil {
-		fmt.Println(err)
-	}
-	defer db.Close()
-
 	tests := []struct {
 		testTitle string
 		expected  models.Article
@@ -50,7 +35,7 @@ func TestSelectArticleDetail(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.testTitle, func(t *testing.T) {
-			got, err := repositories.SelectArticleDetail(db, test.expected.ID)
+			got, err := repositories.SelectArticleDetail(testDB, test.expected.ID)
 			if err != nil {
 				t.Fatal(err)
 			}
