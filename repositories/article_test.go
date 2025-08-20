@@ -7,6 +7,18 @@ import (
 	"github.com/wsigma21/go-mympi/repositories"
 )
 
+func TestSelectArticleList(t *testing.T) {
+	expectedNum := 3
+	got, err := repositories.SelectArticleList(testDB, 1)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if num := len(got); num != expectedNum {
+		t.Errorf("want %d but got %d articles\n", expectedNum, num)
+	}
+}
+
 func TestSelectArticleDetail(t *testing.T) {
 	tests := []struct {
 		testTitle string
