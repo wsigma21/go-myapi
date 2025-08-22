@@ -46,7 +46,7 @@ func SelectCommentList(db *sql.DB, articleID int) ([]models.Comment, error) {
 	for rows.Next() {
 		var comment models.Comment
 		var createdTime sql.NullTime
-		err := rows.Scan(&comment.CommentID, comment.ArticleID, comment.Message, createdTime)
+		err := rows.Scan(&comment.CommentID, &comment.ArticleID, &comment.Message, &createdTime)
 		if err != nil {
 			return nil, err
 		} else {
