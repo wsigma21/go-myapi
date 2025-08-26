@@ -31,7 +31,7 @@ func TestSelectArticleDetail(t *testing.T) {
 				Title:    "firstPost",
 				Contents: "This is my first blog",
 				UserName: "abe",
-				NiceNum:  4,
+				NiceNum:  6,
 			},
 		}, {
 			testTitle: "subtest1",
@@ -82,7 +82,7 @@ func TestInsertArticle(t *testing.T) {
 		UserName: "abe",
 	}
 
-	expectedArticleNum := 4
+	expectedArticleNum := 6
 	newArticle, err := repositories.InsertArticle(testDB, article)
 	if err != nil {
 		t.Error(err)
