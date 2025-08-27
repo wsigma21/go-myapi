@@ -8,7 +8,7 @@ import (
 )
 
 func TestSelectArticleList(t *testing.T) {
-	expectedNum := 3
+	expectedNum := len(testdata.ArticleTestData)
 	got, err := repositories.SelectArticleList(testDB, 1)
 	if err != nil {
 		t.Fatal(err)
@@ -26,22 +26,10 @@ func TestSelectArticleDetail(t *testing.T) {
 	}{
 		{
 			testTitle: "subtest1",
-			expected: models.Article{
-				ID:       1,
-				Title:    "firstPost",
-				Contents: "This is my first blog",
-				UserName: "abe",
-				NiceNum:  6,
-			},
+			expected: testdata.ArticleTestData[0],
 		}, {
 			testTitle: "subtest1",
-			expected: models.Article{
-				ID:       2,
-				Title:    "2nd",
-				Contents: "Second blog post",
-				UserName: "abe",
-				NiceNum:  4,
-			},
+			expected: testdata.ArticleTestData[1],
 		},
 	}
 
@@ -82,7 +70,7 @@ func TestInsertArticle(t *testing.T) {
 		UserName: "abe",
 	}
 
-	expectedArticleNum := 6
+	expectedArticleNum := 7
 	newArticle, err := repositories.InsertArticle(testDB, article)
 	if err != nil {
 		t.Error(err)
