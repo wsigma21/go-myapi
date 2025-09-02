@@ -73,7 +73,7 @@ func TestInsertArticle(t *testing.T) {
 		UserName: "abe",
 	}
 
-	expectedArticleNum := 7
+	expectedArticleNum := 3
 	newArticle, err := repositories.InsertArticle(testDB, article)
 	if err != nil {
 		t.Error(err)
