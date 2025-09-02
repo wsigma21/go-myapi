@@ -8,7 +8,7 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
-	"github.com/wsigma21/go-mympi/models"
+	"github.com/wsigma21/go-myapi/models"
 )
 
 // GET /hello のハンドラ

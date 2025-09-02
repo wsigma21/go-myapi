@@ -1,4 +1,4 @@
-module github.com/wsigma21/go-mympi
+module github.com/wsigma21/go-myapi
 
 go 1.24.4
 

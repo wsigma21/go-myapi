@@ -3,8 +3,8 @@ package repositories_test
 import (
 	"testing"
 
-	"github.com/wsigma21/go-mympi/models"
-	"github.com/wsigma21/go-mympi/repositories"
+	"github.com/wsigma21/go-myapi/models"
+	"github.com/wsigma21/go-myapi/repositories"
 )
 
 func TestSelectCommentList(t *testing.T) {

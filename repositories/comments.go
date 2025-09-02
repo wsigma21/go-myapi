@@ -3,7 +3,7 @@ package repositories
 import (
 	"database/sql"
 
-	"github.com/wsigma21/go-mympi/models"
+	"github.com/wsigma21/go-myapi/models"
 )
 
 // 新規投稿をデータベースにinsertする関数

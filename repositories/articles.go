@@ -4,7 +4,7 @@ import (
 	"database/sql"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/wsigma21/go-mympi/models"
+	"github.com/wsigma21/go-myapi/models"
 )
 
 const (

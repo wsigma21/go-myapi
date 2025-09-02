@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/wsigma21/go-mympi/handlers"
+	"github.com/wsigma21/go-myapi/handlers"
 )
 
 func main() {

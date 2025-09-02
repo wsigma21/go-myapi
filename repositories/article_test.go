@@ -3,8 +3,11 @@ package repositories_test
 import (
 	"testing"
 
-	"github.com/wsigma21/go-mympi/models"
-	"github.com/wsigma21/go-mympi/repositories"
+	"github.com/wsigma21/go-myapi/models"
+	"github.com/wsigma21/go-myapi/repositories"
+	"github.com/wsigma21/go-myapi/repositories/testdata"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func TestSelectArticleList(t *testing.T) {
