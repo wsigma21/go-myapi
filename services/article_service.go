@@ -1,5 +1,7 @@
 package services
 
+import "github.com/wsigma21/my-api/models"
+
 func GetArticleService(articleID int) (models.Article, error) {
 	db, err := connectDB()
 	if err != nil {
