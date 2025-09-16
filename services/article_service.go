@@ -1,6 +1,9 @@
 package services
 
-import "github.com/wsigma21/my-api/models"
+import (
+	"github.com/wsigma21/go-myapi/models"
+	"github.com/wsigma21/go-myapi/repositories"
+)
 
 func GetArticleService(articleID int) (models.Article, error) {
 	db, err := connectDB()
@@ -31,7 +34,7 @@ func PostArticleService(article models.Article) (models.Article, error) {
 	}
 	defer db.Close()
 
-	newArticle err := repositories.InsertArticle(db, article)	
+	newArticle, err := repositories.InsertArticle(db, article)	
 	if err != nil {
 		return models.Article{}, err
 	}
