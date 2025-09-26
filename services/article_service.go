@@ -22,7 +22,7 @@ func (s *MyAppService) GetArticleService(articleID int) (models.Article, error) 
 }
 
 func (s *MyAppService) PostArticleService(article models.Article) (models.Article, error) {
-	newArticle, err := repositories.InsertArticle(s.db, article)	
+	newArticle, err := repositories.InsertArticle(s.db, article)
 	if err != nil {
 		return models.Article{}, err
 	}
@@ -40,17 +40,17 @@ func (s *MyAppService) GetArticleListService(page int) ([]models.Article, error)
 }
 
 func (s *MyAppService) PostNiceService(article models.Article) (models.Article, error) {
-	err = repositories.UpdateNiceNum(s.db, article.ID)
+	err := repositories.UpdateNiceNum(s.db, article.ID)
 	if err != nil {
 		return models.Article{}, err
 	}
 
-	return models.Article {
-		ID: article.ID,
-		Title: article.Title,
-		Contents: article.Contents,
-		UserName: article.UserName,
-		NiceNum: article.NiceNum + 1,
+	return models.Article{
+		ID:        article.ID,
+		Title:     article.Title,
+		Contents:  article.Contents,
+		UserName:  article.UserName,
+		NiceNum:   article.NiceNum + 1,
 		CreatedAt: article.CreatedAt,
 	}, nil
 }

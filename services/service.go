@@ -1,6 +1,6 @@
 package services
 
-import "detabase/sql"
+import "database/sql"
 
 type MyAppService struct {
 	db *sql.DB
