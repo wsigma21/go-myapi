@@ -7,15 +7,15 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
+	"github.com/wsigma21/go-myapi/controllers/services"
 	"github.com/wsigma21/go-myapi/models"
-	"github.com/wsigma21/go-myapi/services"
 )
 
 type MyAppController struct {
-	service *services.MyAppService
+	service services.MyAppServicer
 }
 
-func NewMyAppController(s *services.MyAppService) *MyAppController {
+func NewMyAppController(s services.MyAppServicer) *MyAppController {
 	return &MyAppController{service: s}
 }
 
