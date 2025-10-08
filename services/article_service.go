@@ -43,6 +43,12 @@ func (s *MyAppService) PostArticleService(article models.Article) (models.Articl
 func (s *MyAppService) GetArticleListService(page int) ([]models.Article, error) {
 	articleList, err := repositories.SelectArticleList(s.db, page)
 	if err != nil {
+		err = apperrors.GetDataFailed.Wrap(err, "fail to get data")
+		return nil, err
+	}
+
+	if len(articleList) == 0 {
+		err := apperrors.NAData.Wrap(ErrNoData, "no data")
 		return nil, err
 	}
 

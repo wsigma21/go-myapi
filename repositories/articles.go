@@ -52,13 +52,9 @@ func SelectArticleList(db *sql.DB, page int) ([]models.Article, error) {
 	articleArray := make([]models.Article, 0)
 	for rows.Next() {
 		var article models.Article
-		err := rows.Scan(&article.ID, &article.Title, &article.Contents, &article.UserName, &article.NiceNum)
+		rows.Scan(&article.ID, &article.Title, &article.Contents, &article.UserName, &article.NiceNum)
 
-		if err != nil {
-			return nil, err
-		} else {
-			articleArray = append(articleArray, article)
-		}
+		articleArray = append(articleArray, article)
 	}
 
 	return articleArray, nil
